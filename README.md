@@ -52,3 +52,6 @@ Project to practice interviewing with Glovo.
    ```
 
 You are done! 🎉
+
+## Look at all the problems
+ You can see the description of each problem, the solution and the tests in the [problems.md](problems.md) file.
