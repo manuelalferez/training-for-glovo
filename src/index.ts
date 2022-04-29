@@ -1,29 +1,34 @@
-// First solution: Complexity = O(n^2), Runtime: 112ms, Memory: 43.3 MB
+// Solution: Complexity = 0(log(n+m)), Runtime: 108ms, Memory: 47.6 MB
 
-// function twoSum(nums: number[], target: number): number[] {
-//   for (let i = 0; i < nums.length - 1; i++) {
-//     for (let j = i + 1; j < nums.length; j++) {
-//       if (nums[j] + nums[i] == target) return [i, j];
-//     }
-//   }
-//   return [];
-// }
-
-// Second solution: Complexity = 0(n), Runtime: 77ms, Memory: 44.8 MB
-interface HashTable<T> {
-  [key: string]: T;
-}
-
-function twoSum(nums: number[], target: number): number[] {
-  let hashTable: HashTable<number> = {};
-  for (let index = 0; index < nums.length; index++) {
-    let complement = target - nums[index];
-    if (hashTable[complement] !== undefined) {
-      return [hashTable[complement], index];
+function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
+  let stack: number[] = [];
+  let iteration = Math.round((nums1.length + nums2.length) / 2);
+  let isOdd = (nums1.length + nums2.length) % 2 != 0 ? true : false;
+  if ((nums1.length + nums2.length) % 2 == 0) iteration++;
+  while (stack.length != iteration) {
+    if (nums1.length != 0 && nums2.length != 0) {
+      if (nums1[0] < nums2[0]) {
+        stack.push(nums1[0]);
+        nums1.shift();
+      } else {
+        stack.push(nums2[0]);
+        nums2.shift();
+      }
+    } else {
+      if (nums1.length != 0) {
+        stack.push(nums1[0]);
+        nums1.shift();
+      } else {
+        stack.push(nums2[0]);
+        nums2.shift();
+      }
     }
-    hashTable[nums[index]] = index;
   }
-  return [];
+  if (isOdd) {
+    return stack.pop() as number;
+  } else {
+    return ((stack.pop() as number) + (stack.pop() as number)) / 2;
+  }
 }
 
-export default twoSum;
+export default findMedianSortedArrays;
