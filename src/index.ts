@@ -1,34 +1,44 @@
-// Solution: Complexity = 0(log(n+m)), Runtime: 108ms, Memory: 47.6 MB
+// First solution: Complexity = O(n^2), Runtime: 219 ms, Memory: 48.8 MB
+// function firstUniqChar(s: string): number {
+//   let charArray = s.split("");
+//   if (charArray.length == 1) return 0;
+//   for (let i = 0; i < charArray.length; i++) {
+//     let flag = false;
+//     for (let j = 0; j < charArray.length; j++) {
+//       if (i == j) continue;
+//       if (charArray[i] == charArray[j]) {
+//         flag = true;
+//         break;
+//       }
+//     }
+//     if (!flag) {
+//       return i;
+//     }
+//   }
+//   return -1;
+// }
 
-function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
-  let stack: number[] = [];
-  let iteration = Math.round((nums1.length + nums2.length) / 2);
-  let isOdd = (nums1.length + nums2.length) % 2 != 0 ? true : false;
-  if ((nums1.length + nums2.length) % 2 == 0) iteration++;
-  while (stack.length != iteration) {
-    if (nums1.length != 0 && nums2.length != 0) {
-      if (nums1[0] < nums2[0]) {
-        stack.push(nums1[0]);
-        nums1.shift();
-      } else {
-        stack.push(nums2[0]);
-        nums2.shift();
-      }
-    } else {
-      if (nums1.length != 0) {
-        stack.push(nums1[0]);
-        nums1.shift();
-      } else {
-        stack.push(nums2[0]);
-        nums2.shift();
-      }
-    }
-  }
-  if (isOdd) {
-    return stack.pop() as number;
-  } else {
-    return ((stack.pop() as number) + (stack.pop() as number)) / 2;
-  }
+interface HashTable<T> {
+  [key: string]: T;
 }
 
-export default findMedianSortedArrays;
+function firstUniqChar(s: string): number {
+  let hashTable: HashTable<number> = {};
+  let charArray = s.split("");
+  for (let i = 0; i < s.length; i++) {
+    if (hashTable[charArray[i]] == undefined) {
+      hashTable[charArray[i]] = 1;
+    } else {
+      hashTable[charArray[i]] = hashTable[charArray[i]] + 1;
+    }
+  }
+
+  for (const [key, value] of Object.entries(hashTable)) {
+    if (value == 1) {
+      return charArray.indexOf(key);
+    }
+  }
+  return -1;
+}
+
+export default firstUniqChar;

@@ -207,3 +207,82 @@ test("the median of [2] and [1,3] should be equal to 2", () => {
   expect(findMedianSortedArrays([2], [1, 3])).toBe(2);
 });
 ```
+
+## First Unique Character in a String
+Given a string `s`, find the first non-repeating character in it and return its index. If it does not exist, return `-1`.
+
+Example 1:
+```
+Input: s = "leetcode"
+Output: 0
+```
+
+### Solution 
+**First solution**: Complexity = `0(n^2)`, Runtime: `219ms`, Memory: `48.9 MB`
+```
+function firstUniqChar(s: string): number {
+  let charArray = s.split("");
+  if (charArray.length == 1) return 0;
+  for (let i = 0; i < charArray.length; i++) {
+    let flag = false;
+    for (let j = 0; j < charArray.length; j++) {
+      if (i == j) continue;
+      if (charArray[i] == charArray[j]) {
+        flag = true;
+        break;
+      }
+    }
+    if (!flag) {
+      return i;
+    }
+  }
+  return -1;
+}
+```
+
+**Second solution**: Complexity = `0(n)`, Runtime: `143ms`, Memory: `50.8 MB`
+```
+interface HashTable<T> {
+  [key: string]: T;
+}
+
+function firstUniqChar(s: string): number {
+  let hashTable: HashTable<number> = {};
+  let charArray = s.split("");
+  for (let i = 0; i < s.length; i++) {
+    if (hashTable[charArray[i]] == undefined) {
+      hashTable[charArray[i]] = 1;
+    } else {
+      hashTable[charArray[i]] = hashTable[charArray[i]] + 1;
+    }
+  }
+
+  for (const [key, value] of Object.entries(hashTable)) {
+    if (value == 1) {
+      return charArray.indexOf(key);
+    }
+  }
+  return -1;
+}
+```
+
+### Tests 
+```
+import firstUniqChar from ".";
+
+test("first non-repeating character of 'leetcode' should be 0", () => {
+  expect(firstUniqChar("leetcode")).toBe(0);
+});
+
+test("first non-repeating character of 'loveleetcode' should be 2", () => {
+  expect(firstUniqChar("loveleetcode")).toBe(2);
+});
+
+test("first non-repeating character of 'aabb' should be -1", () => {
+  expect(firstUniqChar("aabb")).toBe(-1);
+});
+
+test("first non-repeating character of 'z' should be 0", () => {
+  expect(firstUniqChar("z")).toBe(0);
+});
+```
