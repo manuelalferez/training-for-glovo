@@ -5,14 +5,14 @@ Here you can find the problems we will be solving.
 Test problem proposed by the [Jest documentation](https://jestjs.io/docs/getting-started). 
 
 ### Solution 
-```
+```ts
     function sum(a: number, b: number): number {
     return a + b;
     }
     export default sum;
 ```
 ### Test 
-```
+```ts
     test("adds 1 + 2 to equal 3", () => {
     expect(sum(1, 2)).toBe(3);
     });    
@@ -41,7 +41,7 @@ Example 2:
 
 ### Solution 
 **First solution**: Complexity = `O(n^2)`, Runtime: `112ms`, Memory: `43.3 MB`
-```
+```ts
 function twoSum(nums: number[], target: number): number[] {
   for (let i = 0; i < nums.length - 1; i++) {
     for (let j = i + 1; j < nums.length; j++) {
@@ -54,7 +54,7 @@ function twoSum(nums: number[], target: number): number[] {
 
 **Second solution**: Complexity = `0(n)`, Runtime: `77ms`, Memory:` 44.8 MB` 
 
-```
+```ts
 interface HashTable<T> {
   [key: string]: T;
 }
@@ -75,7 +75,7 @@ export default twoSum;
 ```
 
 ### Tests
-```
+```ts
 import twoSum from ".";
 
 test("input [2,7,11,15] and target 9 should return [0,1]", () => {
@@ -120,7 +120,7 @@ Example 2:
 
 ### Solution 
 Complexity = `0(log(n+m))`, Runtime: `108ms`, Memory: `47.6 MB`
-```
+```ts
 function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
   let stack: number[] = [];
   let iteration = Math.round((nums1.length + nums2.length) / 2);
@@ -154,7 +154,7 @@ function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
 ```
 
 ### Tests 
-```
+```ts
 import findMedianSortedArrays from ".";
 
 test("the median of [1,3] and [2] should be equal to 2.0", () => {
@@ -219,7 +219,7 @@ Output: 0
 
 ### Solution 
 **First solution**: Complexity = `0(n^2)`, Runtime: `219ms`, Memory: `48.9 MB`
-```
+```ts
 function firstUniqChar(s: string): number {
   let charArray = s.split("");
   if (charArray.length == 1) return 0;
@@ -241,7 +241,7 @@ function firstUniqChar(s: string): number {
 ```
 
 **Second solution**: Complexity = `0(n)`, Runtime: `143ms`, Memory: `50.8 MB`
-```
+```ts
 interface HashTable<T> {
   [key: string]: T;
 }
@@ -267,7 +267,7 @@ function firstUniqChar(s: string): number {
 ```
 
 ### Tests 
-```
+```ts
 import firstUniqChar from ".";
 
 test("first non-repeating character of 'leetcode' should be 0", () => {
